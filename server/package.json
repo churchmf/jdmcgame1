@@ -1,0 +1,19 @@
+{
+  "name": "mattandjason",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "lodash": "^4.16.0",
+    "mocha": "^3.0.2",
+    "should": "^11.1.0"
+  }
+}
