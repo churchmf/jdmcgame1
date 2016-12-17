@@ -1,0 +1,22 @@
+{
+"parts": [
+{
+    "slot": "head",
+    "name": "basic helmet",
+    "energy": 5,
+    "defense": 5,
+    "strength": 0,
+    "speed": 0,
+	"color": "red"
+},
+{
+    "slot": "torso",
+    "name": "basic torso",
+    "energy": 5,
+    "defense": 5,
+    "strength": 0,
+    "speed": 0,
+	"color": "black"
+}
+]
+}
