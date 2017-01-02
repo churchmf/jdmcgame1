@@ -1,38 +1,36 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
-using System;
 
 namespace Assets.Hexagon
 {
     [RequireComponent(typeof(MeshFilter), typeof(MeshRenderer))]
     public class HexagonMesh : MonoBehaviour
     {
-        public Mesh hexMesh;
-        public List<Vector3> vertices;
-        public List<int> triangles;
+        private Mesh m_Mesh;
+        private List<Vector3> m_Vertices;
+        private List<int> m_Triangles;
 
         public void Awake()
         {
-            GetComponent<MeshFilter>().mesh = hexMesh = new Mesh();
-            hexMesh.name = "Hex Mesh";
-            vertices = new List<Vector3>();
-            triangles = new List<int>();
+            GetComponent<MeshFilter>().mesh = m_Mesh = new Mesh();
+            m_Vertices = new List<Vector3>();
+            m_Triangles = new List<int>();
         }
 
         public void Triangulate(HexagonCell[] cells)
         {
-            hexMesh.Clear();
-            vertices.Clear();
-            triangles.Clear();
+            m_Mesh.Clear();
+            m_Vertices.Clear();
+            m_Triangles.Clear();
 
             for (int i = 0; i < cells.Length; i++)
             {
                 Triangulate(cells[i]);
             }
 
-            hexMesh.vertices = vertices.ToArray();
-            hexMesh.triangles = triangles.ToArray();
-            hexMesh.RecalculateNormals();
+            m_Mesh.vertices = m_Vertices.ToArray();
+            m_Mesh.triangles = m_Triangles.ToArray();
+            m_Mesh.RecalculateNormals();
         }
 
         private void Triangulate(HexagonCell cell)
@@ -42,23 +40,23 @@ namespace Assets.Hexagon
             {
                     AddTriangle(
                     center,
-                    center + HexagonCell.corners[i],
-                    center + HexagonCell.corners[i+1]
+                    center + HexagonCell.Corners[i],
+                    center + HexagonCell.Corners[i+1]
                 );
             }
         }
 
         private void AddTriangle(Vector3 v1, Vector3 v2, Vector3 v3)
         {
-            int vertexIndex = vertices.Count;
+            int vertexIndex = m_Vertices.Count;
 
-            vertices.Add(v1);
-            vertices.Add(v2);
-            vertices.Add(v3);
+            m_Vertices.Add(v1);
+            m_Vertices.Add(v2);
+            m_Vertices.Add(v3);
 
-            triangles.Add(vertexIndex);
-            triangles.Add(vertexIndex + 1);
-            triangles.Add(vertexIndex + 2);
+            m_Triangles.Add(vertexIndex);
+            m_Triangles.Add(vertexIndex + 1);
+            m_Triangles.Add(vertexIndex + 2);
         }
     }
 }
