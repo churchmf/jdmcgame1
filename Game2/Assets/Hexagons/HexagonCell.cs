@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Assets.Hexagon
+namespace Assets.Hexagons
 {
     public class HexagonCell : MonoBehaviour
     {
@@ -17,6 +17,6 @@ namespace Assets.Hexagon
             new Vector3(0f, 0f, OuterRadius)
         };
        
-        public HexCoordinates Coordinates;
+        public HexagonCoordinates Coordinates;
     }
 }

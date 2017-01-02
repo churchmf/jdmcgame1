@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Assets.Parts;
+using Assets.Robots;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -18,17 +20,6 @@ public class PartJson
     public int strength;
     public int speed;
     public string color;
-}
-
-public class Part
-{
-    public string Name;
-    public SlotEnum Slot;
-    public int Energy;
-    public int Defense;
-    public int Strength;
-    public int Speed;
-    public Color Color;
 }
 
 public class PartsManager {
@@ -68,7 +59,7 @@ public class PartsManager {
                 Defense = part.defense,
                 Strength = part.strength,
                 Speed = part.speed,
-                Slot = (SlotEnum)Enum.Parse(typeof(SlotEnum), part.slot, true),
+                Slot = (SlotEnum) Enum.Parse(typeof(SlotEnum), part.slot, true),
                 Color = ParseColor(part.color)
             });
         }

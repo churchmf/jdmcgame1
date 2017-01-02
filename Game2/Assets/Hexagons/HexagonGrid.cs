@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-namespace Assets.Hexagon
+namespace Assets.Hexagons
 {
     // http://catlikecoding.com/unity/tutorials/hex-map-1/
     public class HexagonGrid : MonoBehaviour
@@ -53,7 +53,7 @@ namespace Assets.Hexagon
             HexagonCell cell = m_Cells[i] = Instantiate<HexagonCell>(CellPrefab);
             cell.transform.SetParent(transform, false);
             cell.transform.localPosition = position;
-            cell.Coordinates = HexCoordinates.FromOffsetCoordinates(x, z);
+            cell.Coordinates = HexagonCoordinates.FromOffsetCoordinates(x, z);
 
             // debug display
             Text label = Instantiate<Text>(CellLabelPrefab);

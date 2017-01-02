@@ -1,34 +1,20 @@
-﻿using System.Collections.Generic;
+﻿using Assets;
+using Assets.Parts;
+using Assets.Robots;
+using System.Collections.Generic;
+using UnityEngine;
 
-public enum SlotEnum
+public class RobotManager : MonoBehaviour
 {
-    Head,
-    LeftArm,
-    RightArm,
-    Torso,
-    Wheels
-}
+    private RobotBuilder m_RobotBuilder;
 
-public class Robot
-{
-    public IDictionary<SlotEnum, Part> Parts;
-}
-
-public class RobotManager {
-
-    #region Singleton
-    private static RobotManager m_instance;
-    public static RobotManager GetInstance()
+    public void Start()
     {
-        if (m_instance == null)
-        {
-            m_instance = new RobotManager();
-        }
-        return m_instance;
-    }
-    #endregion 
+        m_RobotBuilder = GetComponentInChildren<RobotBuilder>();
 
-    private RobotManager() { }
+        var robot = GetRobot();
+        m_RobotBuilder.BuildRobot(robot);
+    }
 
     public Robot GetRobot()
     {

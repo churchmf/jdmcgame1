@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 
-namespace Assets.Hexagon
+namespace Assets.Hexagons
 {
     [RequireComponent(typeof(MeshFilter), typeof(MeshRenderer))]
     public class HexagonMesh : MonoBehaviour
