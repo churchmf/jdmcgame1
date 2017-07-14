@@ -5,15 +5,12 @@
         public static World Generate()
         {
             // TODO generate
-            return new World
+            return new World(new WorldTile[][]
             {
-                Tiles = new WorldTile[][]
-                {
-                    new WorldTile[]{ new WorldTile(), new WorldTile() },
-                    new WorldTile[]{ new WorldTile(), new WorldTile() },
-                    new WorldTile[]{ new WorldTile(), new WorldTile() }
-                }
-            };
+                new WorldTile[]{ new WorldTile(), new WorldTile() },
+                new WorldTile[]{ new WorldTile(), new WorldTile() },
+                new WorldTile[]{ new WorldTile(), new WorldTile() }
+            });
         }
     }
 }

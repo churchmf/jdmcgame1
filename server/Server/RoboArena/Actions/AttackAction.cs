@@ -1,19 +1,25 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace RoboArena
 {
     public class AttackAction : RobotAction
     {
-        public int EnergyCost { get { return 1; } }
+        private int m_Damage;
 
-        public void Execute(Robot robot, World world, IEnumerable<Robot> others)
+        public AttackAction(int damage) : base(1)
         {
-            if (robot.Energy > EnergyCost)
-            {
-                robot.Energy -= EnergyCost;
-            }
+            m_Damage = damage;
+        }
 
+        protected override void Act(Robot robot, World world, IEnumerable<Robot> others)
+        {
             Location attackLocation = robot.Position.Extrapolate(robot.Facing);
+            Robot target = others.Where(o => o.Position.Equals(attackLocation)).FirstOrDefault();
+            if(target != null)
+            {
+                target.Health -= m_Damage;
+            }
         }
     }
 }

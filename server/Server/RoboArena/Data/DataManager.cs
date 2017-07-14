@@ -14,13 +14,12 @@ namespace RoboArena
                 Id = id,
                 MaxHealth = random.Next(9, 11),
                 MaxEnergy = random.Next(9, 11),
-                MaxSpeed = random.Next(3, 5),
+                MaxSpeed = random.Next(3, 6),
                 Actions = new List<RobotAction>
                 {
-                    new MoveAction(CardinalDirection.North),
-                    new MoveAction(CardinalDirection.East),
-                    new MoveAction(CardinalDirection.South),
-                    new MoveAction(CardinalDirection.West),
+                    new MoveForwardAction(),
+                    new TurnAction((RotationDirection) random.Next((int) RotationDirection.Left, (int) RotationDirection.Right + 1)),
+                    new AttackAction(1),
                 }
             };
         }

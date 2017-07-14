@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 
 namespace RoboArena
@@ -22,24 +23,50 @@ namespace RoboArena
 
         private int ActionIndex = 0;
 
-        public void Execute(World world, IEnumerable<Robot> others)
+        public void Act(World world, IEnumerable<Robot> others)
         {
-            if (Data.Actions != null && Data.Actions.Any())
+            if (CanAct)
             {
-                RobotAction nextAction = Data.Actions[ActionIndex];
-                if (nextAction.EnergyCost <= Energy)
+                Data.Actions[ActionIndex].Perform(this, world, others);
+
+                if (ActionIndex < Data.Actions.Count - 1)
                 {
-                    nextAction.Execute(this, world, others);
+                    ActionIndex++;
+                }
+                else
+                {
+                    ActionIndex = 0;
                 }
             }
         }
 
-        public bool Alive
+        public bool CanAct
+        {
+            get
+            {
+                return IsAlive
+                    && Data.Actions != null
+                    && Data.Actions.Any()
+                    && Data.Actions[ActionIndex].HasSufficientEnergy(this);
+            }
+        }
+
+        public bool IsAlive
         {
             get
             {
                 return Health > 0;
             }
+        }
+
+        public override string ToString()
+        {
+            return string.Format("Id[{0}] Position[{1}] Facing[{2}] Health[{3}]", Data.Id, Position, Facing, Health); 
+        }
+
+        public string DebugOutput()
+        {
+            return ToString();
         }
     }
 }

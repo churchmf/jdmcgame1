@@ -2,10 +2,29 @@
 
 namespace RoboArena
 {
-    public interface RobotAction
+    public abstract class RobotAction
     {
-        int EnergyCost { get; }
+        private int m_EnergyCost;
 
-        void Execute(Robot robot, World world, IEnumerable<Robot> others);
+        public RobotAction(int energyCost)
+        {
+            m_EnergyCost = energyCost;
+        }
+
+        public bool HasSufficientEnergy(Robot robot)
+        {
+            return robot.Energy >= m_EnergyCost;
+        }
+
+        public void Perform(Robot robot, World world, IEnumerable<Robot> others)
+        {
+            if(HasSufficientEnergy(robot))
+            {
+                Act(robot, world, others);
+                robot.Energy -= m_EnergyCost;
+            }
+        }
+
+        protected abstract void Act(Robot robot, World world, IEnumerable<Robot> others);
     }
 }

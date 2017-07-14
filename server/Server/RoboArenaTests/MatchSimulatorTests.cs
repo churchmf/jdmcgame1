@@ -20,7 +20,7 @@ namespace RoboArenaTests
         [Test]
         public void CreateMatch()
         {
-            var participantIds = new List<string> { "1234", "4321" };
+            var participantIds = new List<string> { "A", "B" };
             Match match = m_Simulator.Create(participantIds);
 
             Assert.True(match.Participants.Select(p => p.Data.Id).OrderBy(x => x).SequenceEqual(participantIds.OrderBy(x => x)));
@@ -28,13 +28,13 @@ namespace RoboArenaTests
         }
 
         [Test]
-        public void SimulateMatchDraw()
+        public void SimulateMatch()
         {
-            var participantIds = new List<string> { "1234", "4321" };
+            var participantIds = new List<string> { "A", "B" };
             Match match = m_Simulator.Create(participantIds);
 
             MatchResult result = m_Simulator.Simulate(match);
-            Assert.AreEqual(result.WinnerId, String.Empty);
+            Assert.IsNotNull(result);
         }
     }
 }

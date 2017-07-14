@@ -2,12 +2,6 @@
 {
     public class WorldTile
     {
-        public bool CanTraverse()
-        {
-            // TODO collision
-            return true;
-        }
-
         public bool IsSpawn()
         {
             // TODO spawn logic
@@ -15,5 +9,17 @@
         }
 
         public bool IsOccupied { get; set; }
+
+        public string DebugPrint()
+        {
+            if(IsOccupied)
+            {
+               return "O";
+            }
+            else
+            {
+                return " ";
+            }
+        }
     }
 }

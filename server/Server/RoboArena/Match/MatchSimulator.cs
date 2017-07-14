@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 
 namespace RoboArena
@@ -11,7 +12,7 @@ namespace RoboArena
 
     public class MatchSimulator
     {
-        private const int MaxTurnsBeforeDraw = 100;
+        private const int MaxTurnsBeforeDraw = 25;
 
         public Match Create(IEnumerable<string> participantIds)
         {
@@ -34,33 +35,40 @@ namespace RoboArena
 
         public MatchResult Simulate(Match match)
         {
-            IEnumerable<Robot> remainingRobots = match.Participants.Where(r => r.Alive);
+            IEnumerable<Robot> remainingRobots = match.Participants.Where(r => r.IsAlive);
 
             int TurnCount = 0;
 
             // While(more than one robot is alive)
             while (remainingRobots.Count() > 1 && TurnCount < MaxTurnsBeforeDraw)
             {
-                // ReplenishRobotEnergy(robots)
+                // Replenish each robots energy
                 foreach(Robot robot in remainingRobots)
                 {
                     robot.Energy = robot.Data.MaxEnergy;
                 }
 
-                // SortBySpeedDescending(robots) 
-                remainingRobots = remainingRobots.OrderByDescending(r => r.Speed);
-
-                // Execute each robots action
-                foreach (Robot robot in remainingRobots)
+                // While(any robot can still act)
+                while(remainingRobots.Where(r=>r.CanAct).Any())
                 {
-                    if(robot.Alive)
+                    // Sort robots by speed 
+                    remainingRobots = remainingRobots.OrderByDescending(r => r.Speed);
+
+                    // Execute each robots action
+                    foreach (Robot robot in remainingRobots)
                     {
-                        IEnumerable<Robot> otherRobots = remainingRobots.Where(r => r != robot);
-                        robot.Execute(match.World, otherRobots);
+                        if(robot.IsAlive && robot.CanAct && remainingRobots.Where(r => r.CanAct).Any())
+                        {
+                            IEnumerable<Robot> otherRobots = remainingRobots.Where(r => r != robot);
+                            robot.Act(match.World, otherRobots);
+
+                            //Debug
+                            DebugPrint(match);
+                        }
                     }
                 }
 
-                remainingRobots = remainingRobots.Where(r => r.Alive);
+                remainingRobots = remainingRobots.Where(r => r.IsAlive);
                 TurnCount++;
             }
 
@@ -68,6 +76,18 @@ namespace RoboArena
             {
                 WinnerId = remainingRobots.Count() > 1 ? String.Empty : remainingRobots.First().Data.Id
             };
+        }
+
+        private void DebugPrint(Match match)
+        {
+            Debug.WriteLine("World:");
+            Debug.Write(match.World.DebugOutput());
+
+            Debug.WriteLine("Participants:");
+            foreach(Robot participant in match.Participants)
+            {
+                Debug.WriteLine(participant.DebugOutput());
+            }
         }
     }
 }
