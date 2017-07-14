@@ -2,24 +2,18 @@
 
 namespace RoboArena
 {
-    public class MoveAction : RobotAction
+    public class AttackAction : RobotAction
     {
-        private CardinalDirection m_Direction;
-
-        public MoveAction(CardinalDirection direction)
-        {
-            m_Direction = direction;
-        }
-
         public int EnergyCost { get { return 1; } }
 
         public void Execute(Robot robot, World world, IEnumerable<Robot> others)
         {
-            if(robot.Energy > EnergyCost)
+            if (robot.Energy > EnergyCost)
             {
-                world.Move(robot, m_Direction);
                 robot.Energy -= EnergyCost;
             }
+
+            Location attackLocation = robot.Position.Extrapolate(robot.Facing);
         }
     }
 }

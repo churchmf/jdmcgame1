@@ -1,12 +1,11 @@
 ﻿using System.Collections.Generic;
-using RoboArena.World;
 
-namespace RoboArena.Actions
+namespace RoboArena
 {
     public interface RobotAction
     {
         int EnergyCost { get; }
 
-        void Execute(Robot robot, RobotWorld world, IEnumerable<Robot> others);
+        void Execute(Robot robot, World world, IEnumerable<Robot> others);
     }
 }
