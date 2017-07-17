@@ -9,7 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RoboArena", "RoboArena\Robo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "RoboArenaTests\Tests.csproj", "{01C62743-931F-4FB6-8D5F-0D53894CDB8F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MatchRunner", "MatchEngine\MatchRunner.csproj", "{9E138641-C922-4F53-ACCE-05541FF0EE6F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MatchRunner", "MatchRunner\MatchRunner.csproj", "{9E138641-C922-4F53-ACCE-05541FF0EE6F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MatchMaker", "MatchMaker\MatchMaker.csproj", "{33F1EB8E-9D1F-4DB3-94A8-3F35ADDDF9ED}"
 EndProject
