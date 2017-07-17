@@ -1,10 +1,9 @@
 ﻿using NUnit.Framework;
 using RoboArena;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace RoboArenaTests
+namespace Tests
 {
     [TestFixture]
     public class MatchSimulatorTests
