@@ -17,17 +17,7 @@ namespace Tests
         }
 
         [Test]
-        public void CreateMatch()
-        {
-            var participantIds = new List<string> { "A", "B" };
-            Match match = m_Simulator.Create(participantIds);
-
-            Assert.True(match.Participants.Select(p => p.Data.Id).OrderBy(x => x).SequenceEqual(participantIds.OrderBy(x => x)));
-            Assert.IsNotNull(match.World);
-        }
-
-        [Test]
-        public void SimulateMatch()
+        public void CanSimulateMatch()
         {
             var participantIds = new List<string> { "A", "B" };
             Match match = m_Simulator.Create(participantIds);

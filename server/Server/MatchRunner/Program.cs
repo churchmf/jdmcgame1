@@ -1,4 +1,6 @@
-﻿using System;
+﻿using RoboArena;
+using System;
+using System.Collections.Generic;
 using System.Threading;
 
 namespace Runner
@@ -11,7 +13,15 @@ namespace Runner
             var runner = new MatchRunner();
             while(true)
             {
-                runner.Tick();
+                List<Match> newMatches = runner.ClaimNewMatches();
+
+                List<MatchResult> results = new List<MatchResult>();
+                foreach (Match match in newMatches)
+                {
+                    results.Add(runner.Simulate(match));
+                }
+
+                // TODO submit results
                 Thread.Sleep(1);
             }
         }

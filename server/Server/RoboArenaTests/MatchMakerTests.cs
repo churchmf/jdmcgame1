@@ -16,11 +16,13 @@ namespace Tests
         }
 
         [Test]
-        public void HasQueued()
+        public void CanMatchQueuedParticipants()
         {
             // TODO mock database
-            List<QueuedParticipant> queued = m_MatchMaker.GetQueuedParticipants();
+            List<QueuedParticipant> queued = m_MatchMaker.ClaimQueuedParticipants();
             Assert.IsNotEmpty(queued);
+
+            m_MatchMaker.MatchQueued(queued.ToArray());
         }
     }
 }

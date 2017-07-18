@@ -1,5 +1,4 @@
-﻿using RoboArena;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
@@ -28,7 +27,7 @@ namespace Runner
 
                 foreach (QueuedParticipant participant in participants)
                 {
-                    string query = @"INSERT INTO MatchParticipant('MatchId', 'ParticipantId')
+                    string query = @"INSERT INTO MatchParticipant(MatchId, ParticipantId)
                                      VALUES (@match, @participant)";
                     var command = new SqlCommand(query, connection);
                     command.Parameters.AddWithValue("@match", matchId);
@@ -37,27 +36,29 @@ namespace Runner
                     command.ExecuteNonQuery();
                 }
             }
-
-            var match = new Match()
-            {
-
-            };
         }
 
-        public List<QueuedParticipant> GetQueuedParticipants()
+        /// <summary>
+        /// Pops participants from database
+        /// </summary>
+        /// <returns></returns>
+        public List<QueuedParticipant> ClaimQueuedParticipants()
         {
             var queued = new List<QueuedParticipant>();
             using (var connection = new SqlConnection(DatabaseConnectionString))
             {
-                string query = @"SELECT * FROM MatchQueue m";
-                var command = new SqlCommand(query, connection);
                 connection.Open();
-
-                using (SqlDataReader reader = command.ExecuteReader())
+                using (var command = new SqlCommand("Claim_Queued_Participants", connection)
                 {
-                    while (reader.Read())
+                    CommandType = CommandType.StoredProcedure
+                })
+                {
+                    using (SqlDataReader reader = command.ExecuteReader())
                     {
-                        queued.Add(ReadQueuedParticipant(reader));
+                        while (reader.Read())
+                        {
+                            queued.Add(ReadQueuedParticipant(reader));
+                        }
                     }
                 }
             }

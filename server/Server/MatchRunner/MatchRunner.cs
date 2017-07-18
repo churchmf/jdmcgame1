@@ -1,5 +1,6 @@
 ﻿using RoboArena;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 
 namespace Runner
@@ -16,52 +17,46 @@ namespace Runner
             m_Simulator = new MatchSimulator();
         }
 
-        public void Tick()
+        public MatchResult Simulate(Match match)
         {
-            List<Match> newMatches = GetNewMatches();
-
-            List<MatchResult> results = new List<MatchResult>();
-            foreach(Match match in newMatches)
-            {
-                results.Add(m_Simulator.Simulate(match));
-            }
-
-            SubmitResults(results);
+            return m_Simulator.Simulate(match);
         }
 
-        private List<Match> GetNewMatches()
+        /// <summary>
+        /// Pops new matches from database
+        /// </summary>
+        /// <returns></returns>
+        public List<Match> ClaimNewMatches()
         {
             var matches = new List<Match>();
             using (var connection = new SqlConnection(DatabaseConnectionString))
             {
-                string query = @"SELECT * FROM Matches m WHERE m.Status = 0";
-                var command = new SqlCommand(query, connection);
                 connection.Open();
-
-                using (SqlDataReader reader = command.ExecuteReader())
+                using (var command = new SqlCommand("Claim_New_Matches", connection)
                 {
-                    while (reader.Read())
+                    CommandType = CommandType.StoredProcedure
+                })
+                {
+                    using (SqlDataReader reader = command.ExecuteReader())
                     {
-                        Match match = ReadMatch(reader);
-                        matches.Add(match);
+                        while (reader.Read())
+                        {
+                            matches.Add(ReadMatch(reader));
+                        }
                     }
                 }
+                
             }
-            // TODO query database for matches
-            return new List<Match>();
+            return matches;
         }
 
         private Match ReadMatch(SqlDataReader reader)
         {
             return new Match
             {
-                Id = reader["id"] as string,
+                Id = reader["id"] as int?,
+                Seed = reader["seed"] as int?
             };
-        }
-
-        private void SubmitResults(List<MatchResult> results)
-        {
-            // TODO submit results
         }
     }
 }

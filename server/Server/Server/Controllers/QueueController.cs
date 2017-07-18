@@ -17,6 +17,7 @@ namespace Server.Controllers
         [HttpPut]
         public IActionResult Put(int id)
         {
+            //TODO guard against already in queue
             int numRowsAffected = 0;
             using (var connection = new SqlConnection(DatabaseConnectionString))
             {

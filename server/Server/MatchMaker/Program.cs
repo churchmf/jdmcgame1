@@ -15,7 +15,7 @@ namespace Runner
                 var matchMaker = new MatchMaker();
                 while (true)
                 {
-                    List<QueuedParticipant> queued = matchMaker.GetQueuedParticipants();
+                    List<QueuedParticipant> queued = matchMaker.ClaimQueuedParticipants();
 
                     //TODO better match making logic
                     if (queued.Count > 1)
