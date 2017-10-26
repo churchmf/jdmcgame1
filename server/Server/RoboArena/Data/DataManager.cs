@@ -1,5 +1,4 @@
 ﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using RoboArena.Part;
 using System;
 using System.Collections.Generic;
@@ -39,10 +38,9 @@ namespace RoboArena
             dynamic data = JsonConvert.DeserializeObject(File.ReadAllText(JsonPath));
             dynamic partData = data.PartData[id];
 
-            Dictionary<RobotStat, int> stats = partData.Stats.ToObject<Dictionary<RobotStat, int>>();
+            Type actionType = Type.GetType(String.Format("RoboArena.{0},{1}", partData.Action.Id.ToString(), "RoboArena"));
             Dictionary<string, int> actionArguments = partData.Action.Arguments.ToObject<Dictionary<string, int>>();
-            string action = partData.Action.Id.ToString();
-            Type actionType = Type.GetType(String.Format("RoboArena.{0},{1}", action, "RoboArena"));
+            Dictionary<RobotStat, int> stats = partData.Stats.ToObject<Dictionary<RobotStat, int>>();
             return new RobotPart
             {
                 Id = id,

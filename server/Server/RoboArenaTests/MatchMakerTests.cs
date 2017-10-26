@@ -18,7 +18,6 @@ namespace Tests
         /*[Test]
         public void CanMatchQueuedParticipants()
         {
-            // TODO mock database
             List<QueuedParticipant> queued = m_MatchMaker.ClaimQueuedParticipants();
             Assert.IsNotEmpty(queued);
 

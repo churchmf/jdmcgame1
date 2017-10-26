@@ -8,6 +8,17 @@
       },
       "Slots": {
         "RightArm": "1"
+      },
+      "Script": {
+        "ScriptLoop": {
+          "Condition": "IsFacingRobot",
+          //TODO flush out script
+          "Children": {
+
+          }
+        },
+        "Id": "ScriptLine",
+        "Arguments": "RightArm"
       }
     },
     "B": {

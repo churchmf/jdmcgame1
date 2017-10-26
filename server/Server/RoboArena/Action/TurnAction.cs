@@ -14,7 +14,6 @@ namespace RoboArena
 
         protected override void Act(Robot robot, World world, IEnumerable<Robot> others)
         {
-            // TODO use bitwise operations on enums to do this instead of nested switch
             CardinalDirection newFacing = robot.Facing;
             switch(robot.Facing)
             {
