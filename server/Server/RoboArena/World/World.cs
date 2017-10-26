@@ -67,7 +67,7 @@ namespace RoboArena
             return newTile;
         }
 
-        public string DebugOutput()
+        public override string ToString()
         {
             var builder = new StringBuilder();
             for (int x = 0; x < m_Tiles.Length; ++x)
@@ -76,7 +76,7 @@ namespace RoboArena
                 {
                     WorldTile tile = m_Tiles[x][y];
                     builder.AppendFormat("X{0}Y{1} {2}", x, y, tile.DebugPrint());
-                    if(y != m_Tiles[x].Length - 1)
+                    if (y != m_Tiles[x].Length - 1)
                     {
                         builder.Append(" ");
                     }

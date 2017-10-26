@@ -45,14 +45,14 @@ namespace RoboArena
                 // Replenish each robots energy
                 foreach(Robot robot in remainingRobots)
                 {
-                    robot.Energy = robot.Data.MaxEnergy;
+                    robot.SetMaxStat(RobotStat.Energy);
                 }
 
                 // While(any robot can still act)
                 while(remainingRobots.Where(r=>r.CanAct).Any())
                 {
                     // Sort robots by speed 
-                    remainingRobots = remainingRobots.OrderByDescending(r => r.Speed);
+                    remainingRobots = remainingRobots.OrderByDescending(r => r.GetStat(RobotStat.Speed));
 
                     // Execute each robots action
                     foreach (Robot robot in remainingRobots)
@@ -74,19 +74,19 @@ namespace RoboArena
 
             return new MatchResult
             {
-                WinnerId = remainingRobots.Count() > 1 ? String.Empty : remainingRobots.First().Data.Id
+                WinnerId = remainingRobots.Count() > 1 ? String.Empty : remainingRobots.First().Id
             };
         }
 
         private void DebugPrint(Match match)
         {
             Debug.WriteLine("World:");
-            Debug.Write(match.World.DebugOutput());
+            Debug.Write(match.World.ToString());
 
             Debug.WriteLine("Participants:");
             foreach(Robot participant in match.Participants)
             {
-                Debug.WriteLine(participant.DebugOutput());
+                Debug.WriteLine(participant.ToString());
             }
         }
     }

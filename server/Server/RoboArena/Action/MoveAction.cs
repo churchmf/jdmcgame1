@@ -2,15 +2,18 @@
 
 namespace RoboArena
 {
-    public class MoveForwardAction : RobotAction
+    public class MoveAction : RobotAction
     {
-        public MoveForwardAction() : base(1)
+        private CardinalDirection m_Direction;
+
+        public MoveAction(Dictionary<string, int> arguments, CardinalDirection direction) : base(arguments)
         {
+            m_Direction = direction;
         }
 
         protected override void Act(Robot robot, World world, IEnumerable<Robot> others)
         {
-            Location potentialPosition = robot.Position.Extrapolate(robot.Facing);
+            Location potentialPosition = robot.Position.Extrapolate(m_Direction);
             WorldTile potentialTile = world.GetTile(potentialPosition);
             if (potentialTile != null && !potentialTile.IsOccupied)
             {

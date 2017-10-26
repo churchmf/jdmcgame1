@@ -6,14 +6,14 @@ namespace RoboArena
     {
         private int m_EnergyCost;
 
-        public RobotAction(int energyCost)
+        public RobotAction(Dictionary<string, int> arguments)
         {
-            m_EnergyCost = energyCost;
+            m_EnergyCost = arguments["EnergyCost"];
         }
 
         public bool HasSufficientEnergy(Robot robot)
         {
-            return robot.Energy >= m_EnergyCost;
+            return robot.GetStat(RobotStat.Energy) >= m_EnergyCost;
         }
 
         public void Perform(Robot robot, World world, IEnumerable<Robot> others)
@@ -21,7 +21,7 @@ namespace RoboArena
             if(HasSufficientEnergy(robot))
             {
                 Act(robot, world, others);
-                robot.Energy -= m_EnergyCost;
+                robot.ApplyStat(RobotStat.Energy, -m_EnergyCost);
             }
         }
 

@@ -1,0 +1,40 @@
+﻿{
+  "RobotData": {
+    "A": {
+      "Stats": {
+        "Health": 9,
+        "Energy": 9,
+        "Speed": 6
+      },
+      "Slots": {
+        "RightArm": "1"
+      }
+    },
+    "B": {
+      "Stats": {
+        "Health": 8,
+        "Energy": 10,
+        "Speed": 5
+      },
+      "Slots": {
+        "RightArm": "1"
+      }
+    }
+  },
+  "PartData": {
+    "1": {
+      "Stats": {
+        "Health": 1,
+        "Energy": 1
+      },
+      "Action": {
+        "Id": "AttackAction",
+        "Arguments": {
+          "Damage": 1,
+          "Range": 1,
+          "EnergyCost":  1
+        }
+      }
+    }
+  }
+}

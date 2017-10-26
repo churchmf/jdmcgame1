@@ -15,7 +15,7 @@ namespace Tests
             m_MatchMaker = new MatchMaker();
         }
 
-        [Test]
+        /*[Test]
         public void CanMatchQueuedParticipants()
         {
             // TODO mock database
@@ -23,6 +23,6 @@ namespace Tests
             Assert.IsNotEmpty(queued);
 
             m_MatchMaker.MatchQueued(queued.ToArray());
-        }
+        }*/
     }
 }

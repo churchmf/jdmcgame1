@@ -7,7 +7,7 @@ namespace RoboArena
     {
         private RotationDirection m_Direction;
 
-        public TurnAction(RotationDirection direction) : base(1)
+        public TurnAction(Dictionary<string, int> arguments, RotationDirection direction) : base(arguments)
         {
             m_Direction = direction;
         }
